@@ -12,7 +12,7 @@ dotenv.config({});
 
 
 const corsOptions ={
-    origin:['http://localhost:3000','http://192.168.2.53:3000','http://192.168.1.106:3000','https://chat-app-frontend-nine-opal.vercel.app/','*'], 
+    origin:['http://localhost:3000','http://192.168.2.53:3000','http://192.168.1.106:3000','https://chat-app-frontend-nine-opal.vercel.app','*'], 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }

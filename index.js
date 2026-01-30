@@ -1,28 +1,27 @@
 import express, { urlencoded } from 'express';
 import http from 'http';
-import {Server} from 'socket.io'
+import { Server } from 'socket.io'
 import Createconnection from './config/db.js';
 // import socket from 'socket.io';
 import dotenv from 'dotenv';
 import userRoutes from './routes/user.route.js';
 import messageRoutes from './routes/message.route.js';
-import cors  from 'cors';
+import cors from 'cors';
 import { app, server } from './socket.js';
 dotenv.config({});
 
 
-const corsOptions ={
-    origin:['http://localhost:3000','http://192.168.2.53:3000','http://192.168.1.106:3000','https://chat-app-frontend-nine-opal.vercel.app','http://192.168.144.248:3000','*'], 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
+const corsOptions = {
+    origin: ['http://localhost:3000','http://192.168.2.63:3000'],
+    credentials: true,  //access-control-allow-credentials:true
+    optionSuccessStatus: 200
 }
 app.use(cors(corsOptions))
-app.use(urlencoded({extended:true}))
+app.use(urlencoded({ extended: true }))
 app.use(express.json());
 
-
-app.get('/',(req,res)=>{
-    res.send('Hello worlds')
+app.get('/', (req, res) => {
+    res.send('Welcome to chatapp')
 })
 
 // const httpserver = http.createServer(app);
@@ -42,10 +41,10 @@ app.get('/',(req,res)=>{
 // console.log = function(){}; 
 
 // Routes
-app.use('/api/v1/user',userRoutes);
+app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/message', messageRoutes);
 
 const port = process.env.PORT || 8001;
 Createconnection();
 
-server.listen(port,()=>console.log(`server is listern ${port}`));
+server.listen(port, () => console.log(`server is listern ${port}`));

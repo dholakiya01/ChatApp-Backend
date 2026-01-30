@@ -22,6 +22,9 @@ const userModel = new mongoose.Schema({
         type: String,
         enum: ['male', 'female'],
         require: true
+    },
+    auth_token : {
+        type:String
     }
 },{timestamps:true});
 

@@ -1,24 +1,23 @@
 import jwt from 'jsonwebtoken';
-import { configDotenv } from 'dotenv';
 
-export const Createjwttoken = async(data)=>{
-    try{
-        const response = jwt.sign(data,process.env.JwtSecretKey,{expiresIn:'1d'})
+export const Createjwttoken = async (data) => {
+    try {
+        const response = jwt.sign(data, process.env.JwtSecretKey, { expiresIn: '1d' })
         return response
-    }catch(e){
+    } catch (e) {
         console.log(e);
     }
 }
 
-export const VerifyJwtToken = async(req,res,next)=>{
+export const VerifyJwtToken = async (req, res, next) => {
     const token = req.headers['authorization'];
-    if(!token){
+    if (!token) {
         return res.status(401).json({
-            status:401,
-            msg:"Authorization denied, token not provided"
+            status: 401,
+            msg: "Authorization denied, token not provided"
         });
     };
-    jwt.verify(token,process.env.JwtSecretKey,(error,decode)=>{
+    jwt.verify(token, process.env.JwtSecretKey, (error, decode) => {
         // console.log(decode,"decode");
         if (error) {
             return res.status(401).json({

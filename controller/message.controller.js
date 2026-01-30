@@ -36,10 +36,13 @@ export const sendmessage = async (req, res) => {
         const reciverSocketId = getReciverSoketId(reciverId);
 
         if (reciverSocketId) {
-            io.to(reciverSocketId).emit('newMessage', newmessage)
+            io.to(reciverSocketId).emit('newMessage', newmessage);
+            io.emit('notification',newmessage);
         }
 
-        return res.status(200).json({newmessage})
+        return res.status(200).json({
+            newmessage
+        })
 
     } catch (err) {
         console.log(err);
@@ -57,13 +60,12 @@ export const getmessage = async (req, res) => {
         const conversation = await Conversation.findOne({
             participants: { $all: [senderId, reciverId] }
         }).populate('messages');
-        console.log(conversation, "49");
-        res.status(200).json(conversation.messages)
+        res.status(200).json(conversation?.messages)
     } catch (err) {
         console.log(err);
         res.status(400).json({
             status: false,
-            msg: "Bad request"
+            msg: err.message ||  "Bad request"
         })
     }
 }
